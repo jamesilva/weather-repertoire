@@ -13,13 +13,16 @@
 </head>
 <body>
   <section id="about">
-    <h3 class="about-title">About</h3>
-
+    <h4 class="about-title">About</h4>
+    <p class="about-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio sequi, sit ad unde iste, tenetur quis expedita ex, error deserunt inventore 
+      fugiat! Rerum excepturi praesentium esse deleniti aspernatur a unde?
+    </p>
+    <span class="signature">- james</span>
   </section>
 
   <main class="page-content">
     <section id="intro">
-      <h2 class="title"> Weather Repertoire</h2>
+      <h2 class="title"> <a href="index.html"> Weather Repertoire</a></h2>
       <nav class="navbar">
         <ul>
           <li> 
@@ -35,9 +38,10 @@
     <section id="main">
       <div class="weather-card">
         <div class="weather-canvas">
-          <video class="vid" autoplay muted loop>
+          <!-- <video class="vid" autoplay muted loop>
             <source src="images/wings.webm" type="video/webm">
-          </video>
+            <source src="images/shader.webm" type="video/webm">
+          </video> -->
         </div>
         <!-- <h2 class="weather-description">RAINY</h2> -->
       </div>  
@@ -48,6 +52,107 @@
     </section>
   </main>
   <script src="script.js"></script>
+  <script id="vertexShader" type="x-shader/x-vertex">
+    void main() {
+        gl_Position = vec4( position, 1.0 );
+    }
+</script>
+<script id="fragmentShader" type="x-shader/x-fragment">
+  #ifdef GL_ES
+  precision mediump float;
+  #endif
+  
+  uniform vec2 u_resolution;
+  uniform vec2 u_mouse;
+  uniform float u_time;
+  
+  void main(){
+      vec2 st = gl_FragCoord.xy/u_resolution.xy;
+      vec3 color = vec3(0.0);
+  
+      vec2 pos = (vec2(0.5)-st);
+  
+      float r = (length(pos))*2.0;
+      float a = atan(pos.y,pos.x);
+
+      float f2 = cos(a*2.+5.0*(cos(u_time*3.)*(st.x-.5))+sin(u_time)*0.4);
+
+  
+      color = vec3( 1.-smoothstep(f2,f2+0.02,r))+vec3(0.18);
+  
+      gl_FragColor = vec4(color, 1.0);
+  }
+  
+</script>
+<script type="module">
+
+  // Find the latest version by visiting https://cdn.skypack.dev/three.
+
+  import * as THREE from ' https://cdn.skypack.dev/pin/three@v0.136.0-4Px7Kx1INqCFBN0tXUQc/mode=imports/optimized/three.js';
+
+    var container;
+    var camera, scene, renderer, clock;
+    var uniforms;
+
+    init();
+    animate();
+
+    function init() {
+        container = document.querySelector('.weather-canvas' );
+
+        camera = new THREE.Camera();
+        camera.position.z = 1;
+
+        scene = new THREE.Scene();
+        clock = new THREE.Clock();
+
+        var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
+
+        uniforms = {
+            u_time: { type: "f", value: 1.0 },
+            u_resolution: { type: "v2", value: new THREE.Vector2() },
+            u_mouse: { type: "v2", value: new THREE.Vector2() }
+        };
+
+        var material = new THREE.ShaderMaterial( {
+            uniforms: uniforms,
+            vertexShader: document.getElementById( 'vertexShader' ).textContent,
+            fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+        } );
+
+        var mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+
+        container.appendChild( renderer.domElement );
+
+        onWindowResize();
+        window.addEventListener( 'resize', onWindowResize, false );
+
+        document.onmousemove = function(e){
+          uniforms.u_mouse.value.x = e.pageX
+          uniforms.u_mouse.value.y = e.pageY
+        }
+    }
+
+    function onWindowResize( event ) {
+        renderer.setSize(  getComputedStyle(container).width.replace('px', ''), getComputedStyle(container).height.replace('px', ''));
+        uniforms.u_resolution.value.x = renderer.domElement.width;
+        uniforms.u_resolution.value.y = renderer.domElement.height;
+    }
+
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+    }
+
+    function render() {
+        uniforms.u_time.value += clock.getDelta();
+        renderer.render( scene, camera );
+    }
+</script>
 </body>
 </html>
 
