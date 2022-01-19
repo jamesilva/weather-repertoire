@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="D:\udem\weather\images\icon-no-sun.png"
+   inkscape:export-xdpi="95.989868"
+   inkscape:export-ydpi="95.989868"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="9.7227183"
+     inkscape:cy="23.246135"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-page="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="false"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-global="true"
+     inkscape:snap-object-midpoints="false"
+     inkscape:showpageshadow="false"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-others="false"
+     showborder="true" />
+  <defs
+     id="defs2">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient26580">
+      <stop
+         style="stop-color:#020b1a;stop-opacity:1"
+         offset="0"
+         id="stop26576" />
+      <stop
+         style="stop-color:#3e5879;stop-opacity:1"
+         offset="0.15885417"
+         id="stop59877" />
+      <stop
+         style="stop-color:#9ba5ae;stop-opacity:1"
+         offset="0.32291669"
+         id="stop60071" />
+      <stop
+         style="stop-color:#dcb697;stop-opacity:1"
+         offset="0.47057295"
+         id="stop60137" />
+      <stop
+         style="stop-color:#fc7001;stop-opacity:1"
+         offset="0.60416669"
+         id="stop60139" />
+      <stop
+         style="stop-color:#dd723c;stop-opacity:1"
+         offset="0.77083337"
+         id="stop60205" />
+      <stop
+         style="stop-color:#ad4a28;stop-opacity:1"
+         offset="0.92708331"
+         id="stop60271" />
+      <stop
+         style="stop-color:#040308;stop-opacity:1"
+         offset="1"
+         id="stop26578" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient15765"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#c13838;stop-opacity:1;"
+         offset="0"
+         id="stop15763" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient26580"
+       id="linearGradient26582"
+       x1="6.3499999"
+       y1="0"
+       x2="6.3499999"
+       y2="12.7"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.99924535,1.256932e-5,3.807637e-8)" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath83543">
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m -8.2516927,9.9384112 c 4.2002604,0 4.2002604,0 4.2002604,0 l -0.016536,-3.3238281 -3.3403646,-0.115755 -2.2654948,1.3394532 z"
+         id="path83545" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:8.46667px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
+       x="0.7606771"
+       y="5.6885414"
+       id="text2436"><tspan
+         sodipodi:role="line"
+         style="stroke-width:0.264583"
+         id="tspan2438"
+         x="0.7606771"
+         y="5.6885414" /></text>
+    <rect
+       style="opacity:0.98;mix-blend-mode:normal;fill:url(#linearGradient26582);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264999;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+       id="rect26362"
+       width="12.7"
+       height="12.690415"
+       x="1.2943682e-05"
+       y="1.3049397e-07" />
+  </g>
+</svg>

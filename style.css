@@ -1,0 +1,278 @@
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #2e2e2e;
+  /* background:linear-gradient(to top, #491b4d, #2e2e2e); */
+  /* background:linear-gradient(to top, #040308, #AD4A28, #DD723C, #FC7001, #DCB697, #9BA5AE, #3E5879, #020B1A); */
+  /* background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+  /* pointer-events: none; */
+  user-select: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+main{
+  width: 100%;
+  transition: filter 1.3s ease-in-out;
+}
+
+main.blurred{
+  filter: blur(10px);
+}
+
+/* ASIDE */
+
+#about{
+  position: fixed;
+  z-index: 1;
+  /* background-color: #2e2e2e; */
+  /* display: none; */
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  padding: 3% 0;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 0%;
+  min-height: 100%;
+  transition: all 1.3s;
+}
+
+#about.show{
+  visibility: visible;
+  opacity: 1; 
+  width: 100%;
+  padding: 3% 7%;
+  color: #fefefe;
+  transition: all 1.3s;
+  /* animation: example 1.3s; */
+}
+
+
+h1,h2{
+  font-family: 'Montserrat', sans-serif;
+  font-size: calc(.75rem + 2.5vmin);
+}
+
+section{
+  width: 100%;
+  padding: 3% 7%;
+}
+
+
+/* @keyframes example {
+  from {width: 0%;}
+  to {width: 33%;}
+} */
+
+
+#intro{  
+  display: flex;
+  justify-content: space-between;
+  color: #fefefe;
+  /* background-color: #2e2e2e; */
+}
+
+.title{
+  /* font-size: 2.5rem; */
+  font-weight: 400;
+  /* text-align: center; */
+}
+
+.navbar{
+  display: flex;
+  align-items: center;
+}
+
+/* .navbar ul{
+  display: inline-flex;
+} */
+
+.navbar li{
+  display: inline;
+  list-style: none;
+  padding: 0 0 0 3vw;
+}
+
+.about-button{
+  color: #fefefe;
+  background-color: transparent;
+  /* border: 1px solid #fefefe; */
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition-duration: 0.35s;
+}
+
+.about-button:hover{
+  /* background-color: #fefefe33; */
+  color: #3E5879;
+}
+
+.navbar li a{
+  text-decoration: none;
+  color: inherit;
+  transition-duration: 0.35s;
+}
+
+.navbar li a:hover{
+  color: #3E5879;
+}
+
+/* MAIN SECTION */
+
+#main{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #fefefe;
+  flex-wrap: wrap;
+}
+
+#main >*{
+  flex: 0 0 33.3333%;
+}
+
+.weather-card{
+  position: relative;
+  /* width: 33%; */
+  height: 50vmin;
+  /* margin-bottom: 2%; */
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transition: width 0.35s ease-in-out;
+}
+
+.weather-description{
+  /* position: absolute;
+  top: 50%; */
+  opacity: 0.5;
+  text-align: center;
+  width: 100%;
+  font-size: 1.35rem;
+  font-weight: 400;
+  transition: opacity 0.4s ease-in-out;
+}
+
+/* .weather-card hr{
+  width: 100%;
+} */
+
+.weather-canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.4s ease-out;
+  /* pointer-events: none; */
+}
+
+/* .weather-card:hover{
+  width: 34%;
+} */
+
+/* .weather-card:hover > .weather-description{
+  opacity: 0.5;
+} */
+
+.clouds{
+  background-color: rgb(109, 104, 104);
+}
+
+.sun{
+  background:linear-gradient(to top, #58151A, #BC2909, #BA6D09, #71A8EE, #3072EB, #1552C6, #0542A8);
+}
+
+.rain:hover{
+  opacity: 1;
+}
+.sun:hover{
+  opacity: .4;
+}
+.clouds:hover{
+  opacity: .3;
+}
+
+
+/* COPYRIGHT */
+
+#contact{
+  width: 100%;
+  padding-bottom: 1%;
+  /* position: fixed; */
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.copy{
+  /* text-align: center; */
+  color: #ffffff;
+  font-weight: 400;
+}
+
+@media (max-width: 956px) {
+  #main >*{
+    flex: 0 0 50%;
+  }
+  /* .weather-card:hover{
+    width:66%;
+  } */
+  #contact{
+    position: relative;
+  }
+  #intro{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .title{
+    padding-bottom: 3%;
+  }
+}
+
+@media (max-width: 765px){
+  #main >*{
+    flex: 0 0 80%;
+  }
+}
+
+/* .vid{
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: .5;
+  pointer-events: none;
+} */
