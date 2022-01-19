@@ -23,6 +23,7 @@
   <main class="page-content">
     <section id="intro">
       <h2 class="title"> <a href="index.html"> Weather Repertoire</a></h2>
+      <input type="number" name="" id="N_input" min="2.0" value="3.0">
       <nav class="navbar">
         <ul>
           <li> 
@@ -58,29 +59,46 @@
     }
 </script>
 <script id="fragmentShader" type="x-shader/x-fragment">
+  // Author @patriciogv - 2015
+
   #ifdef GL_ES
   precision mediump float;
   #endif
   
   uniform vec2 u_resolution;
-  uniform vec2 u_mouse;
   uniform float u_time;
+  uniform vec2 u_mouse; 
+  uniform float N;
   
-  void main(){
-      vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  float circle(in vec2 _st, in float _radius){
+      vec2 l = _st-vec2(0.5);
+      return 1.-smoothstep(_radius-(_radius*0.01),
+                           _radius+(_radius*0.01),
+                           dot(l,l)*4.0);
+  }
+  
+  void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution;
       vec3 color = vec3(0.0);
+    vec2 mous= u_mouse.xy/u_resolution;
+     // float N=u_mouse.y;
+      st *= N;      // Scale up the space by 3
+      st = fract(st); // Wrap around 1.0
+    mous*=N;
+      // Now we have 9 spaces that go from 0-1
   
-      vec2 pos = (vec2(0.5)-st);
+      //color = vec3(st,0.0);
+      color = vec3(circle(st,0.5));
+      st = N*gl_FragCoord.xy/u_resolution;
+     if((floor(st))==vec2((floor((N)*abs(cos(u_time)))),floor((N)*abs(cos((N*.5)*u_time)))))
+      {
+        color*=vec3(1.0,0.0,0.0);
+      }
+   /*   if(floor(st)==floor(mous)){
+          color*=vec3(1.0,0.0,0.0);
+      }*/
   
-      float r = (length(pos))*2.0;
-      float a = atan(pos.y,pos.x);
-
-      float f2 = cos(a*2.+5.0*(cos(u_time*3.)*(st.x-.5))+sin(u_time)*0.4);
-
-  
-      color = vec3( 1.-smoothstep(f2,f2+0.02,r))+vec3(0.18);
-  
-      gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color,1.0);
   }
   
 </script>
@@ -93,12 +111,15 @@
     var container;
     var camera, scene, renderer, clock;
     var uniforms;
+    var N_input;
 
     init();
     animate();
 
     function init() {
         container = document.querySelector('.weather-canvas' );
+        N_input= document.getElementById('N_input');
+        var N_value=parseFloat( N_input.value);
 
         camera = new THREE.Camera();
         camera.position.z = 1;
@@ -111,7 +132,8 @@
         uniforms = {
             u_time: { type: "f", value: 1.0 },
             u_resolution: { type: "v2", value: new THREE.Vector2() },
-            u_mouse: { type: "v2", value: new THREE.Vector2() }
+            u_mouse: { type: "v2", value: new THREE.Vector2() },
+            N:{type: "f", value: (N_value) }
         };
 
         var material = new THREE.ShaderMaterial( {
@@ -134,6 +156,10 @@
         document.onmousemove = function(e){
           uniforms.u_mouse.value.x = e.pageX
           uniforms.u_mouse.value.y = e.pageY
+        }
+
+        N_input.oninput = function(e){
+          uniforms.N.value=e.target.value;
         }
     }
 
