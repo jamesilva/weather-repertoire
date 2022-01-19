@@ -2,7 +2,7 @@ window.addEventListener('load',function (){
   var aboutSection =this.document.getElementById('about'),
       mainSection= this.document.querySelector('.page-content'),
       aboutButton=this.document.querySelector('.about-button');
-  setupCanvas();
+  //setupCanvas();
 
   aboutButton.addEventListener('click', (event) =>{
       mainSection.classList.toggle('blurred');
