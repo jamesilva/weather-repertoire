@@ -22,7 +22,7 @@
 
   <main class="page-content">
     <section id="intro">
-      <h2 class="title"> <a href="index.html"> Weather Repertoire</a></h2>
+      <h2 class="title"> <a href="spot-index.html"> Weather Repertoire</a></h2>
       <!-- <input type="number" name="" id="N_input" min="2.0" value="1.0"> -->
       <nav class="navbar">
         <ul>
@@ -57,67 +57,6 @@
     void main() {
         gl_Position = vec4( position, 1.0 );
     }
-</script>
-<script id="fragmentShader" type="x-shader/x-fragment">
-  #ifdef GL_ES
-  precision mediump float;
-  #endif
-  
-  #define PI 3.14159265359
-  #define TWO_PI 6.28318530718
-  
-  uniform vec2 u_resolution;
-  uniform vec2 u_mouse;
-  uniform float u_time;
-  uniform float N;
-  
-  // Reference to
-  // http://thndl.com/square-shaped-shaders.html
-  
-  float d_field (vec2 _st, vec2 _pos, in int _N){
-      _st-=_pos;
-      float a = atan(_st.x,_st.y)+PI;
-      float r = TWO_PI/float(_N);
-      float d = abs(cos(floor(.5+a/r)*r-a)*length(_st));
-      return d;
-  }
-  
-  void main(){
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    vec3 color = vec3(0.0);
-    float d = 0.0;
-  
-    // Remap the space to -1. to 1.
-  //  st = abs(st *2.-1.);
-
-      
-   // st = abs(st *2.-1.);
-    st = abs(st *2.-1.);
-    st = abs(st *2.-1.)*(fract(-st.x-st.y+u_time*0.2));
-    st=N*st;
-    st=fract(st);
-  
-
-  
-    
-    // Number of sides of your shape
-    int N = 3;
-  
-    // Angle and radius from the current pixel
-  
-    vec2 pos = (vec2(0.5)-st);
-  
-      float r = (length(pos))*2.0;
-      float a = atan(pos.y,pos.x);
-    // Shaping function that modulate the distance
-    float f2 = cos(a*2.+5.0*(cos(u_time*3.)*(st.x-.5)));
-    vec3 color2 = vec3( 1.-smoothstep(f2,f2+0.02,r));
-    color= vec3(smoothstep(.4,.41,d_field(-st,vec2(0.0,0.),N)-step(.75, st.y) -step(st.y,-.75)));
-    color*=vec3(cos(st.y),sin(st.x),st.x);
-    gl_FragColor = vec4(color,1.0);
-  }
-  
-  
 </script>
 <script id="fragmentShader2" type="x-shader/x-fragment">
   // Author @patriciogv - 2015
@@ -166,7 +105,7 @@ float box(in vec2 _st, in vec2 _size){
   return uv.x*uv.y;
 }
 
-float cross(in vec2 _st, float _size){
+float crossy(in vec2 _st, float _size){
   return  box(_st, vec2(_size,_size/200.)) +
           box(_st, vec2(_size/200.,_size));
 }
@@ -186,7 +125,7 @@ void main(){
    // st -= vec2(0.5);
    // st = rotate2d(cos(u_time*0.1)) * st;
   //  st += vec2(0.5);
-   color-= poi*vec3(1.);
+   color= poi*vec3(1.);
   st+=vec2(0.5);
   st -= translate;
   //st-=vec2(0.5);
@@ -195,13 +134,13 @@ void main(){
          + (circle(st,0.4)-circle(st,0.31))*vec3((step(0.30,distance(mov, translate -vec2(0.5))))-(step(0.4,distance(mov, translate -vec2(0.5)))), 0.,0.)
          + (circle(st,0.3)-circle(st,0.21))*vec3((step(0.20,distance(mov, translate -vec2(0.5))))-(step(0.3,distance(mov, translate -vec2(0.5)))), 0.,0.)
          + (circle(st,0.2)-circle(st,0.11))*vec3((step(0.10,distance(mov, translate -vec2(0.5))))-(step(0.2,distance(mov, translate -vec2(0.5)))), 0.,0.)
-         + (circle(st,0.1)-circle(st,0.0))*vec3((step(0.0,distance(mov, translate -vec2(0.5))))-(step(0.1,distance(mov, translate -vec2(0.5)) )), 0.,0.)
+         + (circle(st,0.1)-circle(st,0.001))*vec3((step(0.0,distance(mov, translate -vec2(0.5))))-(step(0.1,distance(mov, translate -vec2(0.5)) )), 0.,0.)
          + (circle(st,0.5)-circle(st,0.49))
          + (circle(st,0.4)-circle(st,0.395))
          + (circle(st,0.3)-circle(st,0.298))
          + (circle(st,0.2)-circle(st,0.198))
          + (circle(st,0.1)-circle(st,0.098))
-         + cross(st, 1.)*0.5;
+         + crossy(st, 1.)*0.5;
    //color=vec3((circle(st, 0.5) - circle(st, 0.4))*poi,.0,.0);
    // color+= vec3(poi)*step(1.,circle(st, 0.5)-circle(st,0.4));
    // color+= vec3((circle(st,0.5)-circle(st,0.4))*poi);

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌧☀Weather Repertoire❄🌦</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200..900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="images/spotify.png" type="image/x-icon">
+  
+</head>
+<body>
+  <section id="about">
+    <h4 class="about-title">About</h4>
+    <p class="about-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio sequi, sit ad unde iste, tenetur quis expedita ex, error deserunt inventore 
+      fugiat! Rerum excepturi praesentium esse deleniti aspernatur a unde?
+    </p>
+    <span class="signature">- james</span>
+  </section>
+
+  <main class="page-content">
+    <section id="intro">
+      <h2 class="title"> <a href="index.html"> Weather Repertoire</a></h2>
+      <!-- <input type="number" name="" id="N_input" min="2.0" value="1.0"> -->
+      <nav class="navbar">
+        <ul>
+          <li> 
+            <button class="about-button">About</button>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul>      
+      </nav>
+    </section>
+
+    <section id="main">
+      <div class="weather-card">
+        <div class="weather-canvas">
+          <!-- <video class="vid" autoplay muted loop>
+            <source src="images/wings.webm" type="video/webm">
+            <source src="images/shader.webm" type="video/webm">
+          </video> -->
+        </div>
+        <!-- <h2 class="weather-description">RAINY</h2> -->
+      </div>  
+    </section>
+
+    <section id="contact">
+      <h4 class="copy"> &copy; Oi Joni 2022</h4>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script id="vertexShader" type="x-shader/x-vertex">
+    void main() {
+        gl_Position = vec4( position, 1.0 );
+    }
+</script>
+<script id="fragmentShader" type="x-shader/x-fragment">
+  #ifdef GL_ES
+  precision mediump float;
+  #endif
+  
+  #define PI 3.14159265359
+  #define TWO_PI 6.28318530718
+  
+  uniform vec2 u_resolution;
+  uniform vec2 u_mouse;
+  uniform float u_time;
+  uniform float N;
+  
+  // Reference to
+  // http://thndl.com/square-shaped-shaders.html
+  
+  float d_field (vec2 _st, vec2 _pos, in int _N){
+      _st-=_pos;
+      float a = atan(_st.x,_st.y)+PI;
+      float r = TWO_PI/float(_N);
+      float d = abs(cos(floor(.5+a/r)*r-a)*length(_st));
+      return d;
+  }
+  
+  void main(){
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    vec3 color = vec3(0.0);
+    float d = 0.0;
+  
+    // Remap the space to -1. to 1.
+  //  st = abs(st *2.-1.);
+
+      
+   // st = abs(st *2.-1.);
+    st = abs(st *2.-1.);
+    st = abs(st *2.-1.)*(fract(-st.x-st.y+u_time*0.2));
+    st=N*st;
+    st=fract(st);
+  
+
+  
+    
+    // Number of sides of your shape
+    int N = 3;
+  
+    // Angle and radius from the current pixel
+  
+    vec2 pos = (vec2(0.5)-st);
+  
+      float r = (length(pos))*2.0;
+      float a = atan(pos.y,pos.x);
+    // Shaping function that modulate the distance
+    float f2 = cos(a*2.+5.0*(cos(u_time*3.)*(st.x-.5)));
+    vec3 color2 = vec3( 1.-smoothstep(f2,f2+0.02,r));
+    color= vec3(smoothstep(.4,.41,d_field(-st,vec2(0.0,0.),N)-step(.75, st.y) -step(st.y,-.75)));
+    color*=vec3(cos(st.y),sin(st.x),st.x);
+    gl_FragColor = vec4(color,1.0);
+  }
+  
+  
+</script>
+<script id="fragmentShader2" type="x-shader/x-fragment">
+  // Author @patriciogv - 2015
+// http://patriciogonzalezvivo.com
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265359
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+mat2 rotate2d(float _angle){
+  return mat2(cos(_angle),-sin(_angle),
+              sin(_angle),cos(_angle));
+}
+
+mat2 scale(vec2 _scale){
+  return mat2(_scale.x,0.0,
+              0.0,_scale.y);
+}
+
+float circle(in vec2 _st, in float _radius){
+  vec2 dist = _st-vec2(0.5);
+  return 1.-smoothstep(_radius-(_radius*0.005),
+                       _radius+(_radius*0.005),
+                       length(dist));
+}
+
+vec2 tile(vec2 _st, float _zoom){
+  _st *= _zoom;
+  return fract(_st);
+}
+
+float box(in vec2 _st, in vec2 _size){
+  _size = vec2(0.5) - _size*0.5;
+  vec2 uv = smoothstep(_size,
+                      _size+vec2(0.001),
+                      _st);
+  uv *= smoothstep(_size,
+                  _size+vec2(0.001),
+                  vec2(1.0)-_st);
+  return uv.x*uv.y;
+}
+
+float crossy(in vec2 _st, float _size){
+  return  box(_st, vec2(_size,_size/200.)) +
+          box(_st, vec2(_size/200.,_size));
+}
+
+float plot(vec2 st, float pct){
+  return  smoothstep( pct-0.02, pct, st.y) -
+          smoothstep( pct, pct+0.02, st.y);
+}
+
+void main(){
+  vec2 st = gl_FragCoord.xy/u_resolution.xy;
+  vec2 mous= u_mouse.xy/u_resolution.xy;
+  vec3 color = vec3(0.0);
+  vec2 translate = mous;
+  vec2 mov=vec2(0.3*cos(u_time*0.2)+0.1*cos(0.02*u_time),0.3*sin(u_time*0.2)+0.1*cos(0.02*u_time));
+  float poi= circle(st-mov,0.02);
+  color+= poi*vec3(1.);
+  st+=vec2(0.5);
+  st -= translate;
+  //st-=vec2(0.5);
+
+  color += (circle(st,0.5)-circle(st,0.41))*vec3(step(0.40,distance(mov, translate -vec2(0.5)))-(step(0.5,distance(mov, translate -vec2(0.5)))), 0.0,0.0)
+         + (circle(st,0.4)-circle(st,0.31))*vec3((step(0.30,distance(mov, translate -vec2(0.5))))-(step(0.4,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.3)-circle(st,0.21))*vec3((step(0.20,distance(mov, translate -vec2(0.5))))-(step(0.3,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.2)-circle(st,0.11))*vec3((step(0.10,distance(mov, translate -vec2(0.5))))-(step(0.2,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.1)-circle(st,0.01))*vec3((step(0.0,distance(mov, translate -vec2(0.5))))-(step(0.1,distance(mov, translate -vec2(0.5)) )), 0.,0.)
+         + (circle(st,0.5)-circle(st,0.49))
+         + (circle(st,0.4)-circle(st,0.395))
+         + (circle(st,0.3)-circle(st,0.298))
+         + (circle(st,0.2)-circle(st,0.198))
+         + (circle(st,0.1)-circle(st,0.098))
+         + crossy(st, 1.)*0.5;
+   //color=vec3((circle(st, 0.5) - circle(st, 0.4))*poi,.0,.0);
+   // color+= vec3(poi)*step(1.,circle(st, 0.5)-circle(st,0.4));
+   // color+= vec3((circle(st,0.5)-circle(st,0.4))*poi);
+   //  color+= step(circle(st, 0.5) - circle(st, 0.4),poi) ;
+   color= color*0.996078431373+vec3(0.180392156863);
+    gl_FragColor = vec4(color, 1.0);
+}
+  
+</script>
+<script type="module">
+
+  // Find the latest version by visiting https://cdn.skypack.dev/three.
+
+  import * as THREE from ' https://cdn.skypack.dev/pin/three@v0.136.0-4Px7Kx1INqCFBN0tXUQc/mode=imports/optimized/three.js';
+
+    var container;
+    var camera, scene, renderer, clock;
+    var uniforms;
+   // var N_input;
+
+    init();
+    animate();
+
+    function init() {
+        container = document.querySelector('.weather-canvas' );
+      //  N_input= document.getElementById('N_input');
+    //    var N_value= N_input!=null? parseFloat( N_input.value): 0.0;
+
+        camera = new THREE.Camera();
+        camera.position.z = 1;
+
+        scene = new THREE.Scene();
+        clock = new THREE.Clock();
+
+        var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
+
+        uniforms = {
+            u_time: { type: "f", value: 1.0 },
+            u_resolution: { type: "v2", value: new THREE.Vector2() },
+            u_mouse: { type: "v2", value: new THREE.Vector2() },
+            N:{type: "f", value:0.0}
+        };
+
+        var material = new THREE.ShaderMaterial( {
+            uniforms: uniforms,
+            vertexShader: document.getElementById( 'vertexShader' ).textContent,
+            fragmentShader: document.getElementById( 'fragmentShader2' ).textContent
+        } );
+
+        var mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+
+        container.appendChild( renderer.domElement );
+
+        onWindowResize();
+        window.addEventListener( 'resize', onWindowResize, false );
+
+        // const resizeObserver = new ResizeObserver(entries => {
+        //   for (let entry of entries) {
+        //     if(entry.contentBoxSize) {
+        //       // console.log(entry.contentBoxSize[0].blockSize);
+        //        renderer.setSize(entry.contentBoxSize[0].inlineSize, entry.contentBoxSize[0].blockSize);
+        //       renderer.setSize(  getComputedStyle(container).width.replace('px', ''), getComputedStyle(container).height.replace('px', ''));
+        //       uniforms.u_resolution.value.x = renderer.domElement.width;
+        //       uniforms.u_resolution.value.y = renderer.domElement.height;
+        //     }
+        //   }
+        // });
+        
+        // resizeObserver.observe(container);
+
+        container.onmousemove = function(e){
+          // console.log(e.clientX- e.target.getBoundingClientRect().left, -(e.clientY- e.target.getBoundingClientRect().bottom ))
+          // console.log(e.target.getBoundingClientRect().width, e.target.getBoundingClientRect().height)
+          uniforms.u_mouse.value.x = e.clientX- e.target.getBoundingClientRect().left;
+          uniforms.u_mouse.value.y = -(e.clientY- e.target.getBoundingClientRect().bottom);
+        }
+        container.onmouseleave = function(e){
+          uniforms.u_mouse.value.x = e.target.getBoundingClientRect().width/2;
+          uniforms.u_mouse.value.y =  e.target.getBoundingClientRect().height/2;
+        }
+
+        // N_input.oninput = function(e){
+        //   uniforms.N.value=e.target.value;
+        // }
+    }
+
+    function onWindowResize( event ) {
+        // console.log( getComputedStyle(container).width.replace('px', ''), getComputedStyle(container).height.replace('px', ''))
+        renderer.setSize(  getComputedStyle(container).width.replace('px', ''), getComputedStyle(container).height.replace('px', ''));
+        uniforms.u_resolution.value.x = renderer.domElement.width;
+        uniforms.u_resolution.value.y = renderer.domElement.height;
+        uniforms.u_mouse.value.x = renderer.domElement.width/2;
+        uniforms.u_mouse.value.y =  renderer.domElement.height/2;
+    }
+
+    function animate() {
+        requestAnimationFrame( animate );
+        render();
+    }
+
+    function render() {
+        uniforms.u_time.value += clock.getDelta();
+        renderer.render( scene, camera );
+    }
+</script>
+</body>
+</html>
+
+  <!-- <video class="vid" autoplay muted loop poster="INKS-300.png">
+    <source src="images/shader.webm" type="video/webm">
+  Your browser does not support the video tag.
+  </video> -->

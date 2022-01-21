@@ -15,10 +15,12 @@ html{
 body{
   width: 100%;
   min-height: 100vmin;
-  background-color: var(--secondary-color);
+  /* background-color: var(--secondary-color); */
   /* background-color: #fefefe; */
-  /* background:linear-gradient(to top, #491b4d, #2e2e2e); */
-  /* background:linear-gradient(to top, #040308, #AD4A28, #DD723C, #FC7001, #DCB697, #9BA5AE, #3E5879, #020B1A); */
+  /* background:linear-gradient(to top, #3E5879,  #020B1A); */
+  /* background-image: url('images/icon-no-sun.png');
+  background-size: cover; */
+  background:linear-gradient(to top, #3E5879, #020B1A);
   /* background-size: cover;
   background-position: center;
   background-repeat: no-repeat; */
@@ -41,7 +43,7 @@ main.blurred{
 #about{
   position: fixed;
   z-index: 1;
-  background-color: var(--secondary-color);
+  background-color: #020711;
   visibility: hidden;
   display: flex;
   flex-direction: column;
@@ -95,8 +97,10 @@ h2{
 
 section{
   width: 100%;
-  padding: 3% 7%;
+  padding: 3% 7% 1%;
 }
+
+/* First section */
 
 #intro{  
   display: flex;
@@ -108,10 +112,7 @@ section{
 .title{
   /* font-size: 2.5rem; */
   font-weight: 400;
-  /* border: 10px solid transparent; */
   text-align: center;
-  /* padding-left: 3vw; */
-  /* box-shadow: 10px 10px #4e2e2e; */
 }
 
 .title a{
@@ -177,20 +178,21 @@ section{
   align-items: center;
   color: var(--primary-color);
   flex-wrap: wrap;
+  gap: 2%;
 }
 
-/* #main >*{
-  flex: 0 0 33.3333%;
-} */
+#main >*{
+  flex: 0 0 22.5%;
+}
 
 /* Weather Cards */
 
 .weather-card{
   position: relative;
-  z-index: 1;
-  width: 33.3333%;
+  /* z-index: 1; */
+  /* width: 33.3333%; */
   height: 55vmin;
-  /* margin-bottom: 2%; */
+  margin-bottom: 2%;
   border: 1px solid white;
   display: flex;
   flex-direction: column;
@@ -199,15 +201,23 @@ section{
   transition: width 0.35s ease-in-out;
 }
 
+.playlist{
+  width: 100%;
+  height: 100%;
+}
+
 .weather-description{
   /* position: absolute;
   top: 50%; */
-  opacity: 0.5;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .5;
   width: 100%;
+  height: 100%;
   font-size: 1.35rem;
   font-weight: 400;
-  transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .weather-canvas{
@@ -217,21 +227,26 @@ section{
   opacity: 1;
   width: 100%;
   height: 100%;
-  transition: opacity 0.4s ease-out;
+  transition: opacity 0.35s ease-in-out;
   /* pointer-events: none; */
 }
 
-/* .weather-canvas:hover{
+.weather-canvas:hover{
   opacity: 1;
-} */
-
+}
+/* 
 .clouds{
-  background-color: rgb(109, 104, 104);
+  background-color: rgba(109, 104, 104, 0.542);
+}
+
+.rain{
+  background-color: rgba(109, 104, 104, 0.542);
 }
 
 .sun{
-  background:linear-gradient(to top, #58151A, #BC2909, #BA6D09, #71A8EE, #3072EB, #1552C6, #0542A8);
-}
+  background-image: url('images/mountains-svgrepo-com.svg');
+  background-color: rgba(109, 104, 104, 0.542);
+} */
 
 .vid{
   min-width: 100%;
@@ -262,6 +277,14 @@ section{
   color: var(--primary-color);
   font-weight: 400;
   font-size: calc(.1rem + 2.5vmin);
+}
+
+.logo{
+  width: 10%;
+}
+
+.front-logo:hover{
+  fill: #fefefe;
 }
 
 @media (max-width: 956px) {
