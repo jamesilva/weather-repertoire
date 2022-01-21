@@ -1,9 +1,16 @@
-window.addEventListener('load',function (){
+window.addEventListener('DOMContentLoaded',function (){
   var aboutSection =this.document.getElementById('about'),
       mainSection= this.document.querySelector('.page-content'),
-      aboutButton=this.document.querySelector('.about-button');
-  //setupCanvas();
+      aboutButton=this.document.querySelector('.about-button'),
+      tabButtons=this.document.querySelectorAll('.tab-selector'),
+      tabContent=this.document.querySelectorAll('.weather-card');
 
+  window.addEventListener('click', (e) =>{
+  
+      console.log(e.target);
+  
+  })
+      
   aboutButton.addEventListener('click', (event) =>{
       mainSection.classList.toggle('blurred');
       aboutSection.classList.toggle('show');
@@ -13,64 +20,26 @@ window.addEventListener('load',function (){
     mainSection.classList.toggle('blurred');
     aboutSection.classList.toggle('show');
   });
+
+  tabButtons.forEach(element => {
+    element.addEventListener('click',(e)=>{
+      if(element.classList.contains('active')) return;
+      tabButtons.forEach(element => {
+        element.classList.remove('active');
+      });
+      changeTab(e, element.title);
+    })    
+  });
+
+  function changeTab(event, tabName){
+    tabContent.forEach(element => {
+      element.classList.remove('active');
+      if(element.classList.contains(tabName)){
+        element.classList.toggle('active');       
+        event.target.classList.toggle('active');
+      }    
+    });
+  }
+
 });
 
-
-
-function setupCanvas(){
-  var canvas = this.document.querySelector('.weather-canvas.rain');
-  canvas.width = getComputedStyle(canvas).width.replace('px', '');
-  canvas.height = getComputedStyle(canvas).height.replace('px', '');
-  
-  if(canvas.getContext) {
-    var ctx = canvas.getContext('2d');
-    var w = canvas.width;
-    var h = canvas.height;
-    ctx.strokeStyle = 'rgba(174,194,224,0.5)';
-    ctx.lineWidth = 1;
-    ctx.lineCap = 'round';
-    
-    
-    var init = [];
-    var maxParts = 1000;
-    for(var a = 0; a < maxParts; a++) {
-      init.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        l: Math.random() * 1,
-        xs: -4 + Math.random() * 4 + 2,
-        ys: Math.random() * 10 + 10
-      })
-    }
-    
-    var particles = [];
-    for(var b = 0; b < maxParts; b++) {
-      particles[b] = init[b];
-    }
-    
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      for(var c = 0; c < particles.length; c++) {
-        var p = particles[c];
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-        ctx.stroke();
-      }
-      move();
-    }
-    
-    function move() {
-      for(var b = 0; b < particles.length; b++) {
-        var p = particles[b];
-        p.x += p.xs;
-        p.y += p.ys;
-        if(p.x > w || p.y > h) {
-          p.x = Math.random() * w;
-          p.y = -20;
-        }
-      }
-    }
-    setInterval(draw, 30);
-  }
-}
