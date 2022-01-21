@@ -191,11 +191,11 @@ void main(){
   st -= translate;
   //st-=vec2(0.5);
 
-  color += (circle(st,0.5)-circle(st,0.41))*vec3(step(0.40,length(mov-vec2(0.0))), 0.0,0.0)
-         + (circle(st,0.4)-circle(st,0.31))*vec3((step(0.30,length(mov-vec2(0.0))))-(step(0.4,length(mov-vec2(0.0)))), 0.,0.)
-         + (circle(st,0.3)-circle(st,0.21))*vec3((step(0.20,length(mov-vec2(0.0))))-(step(0.3,length(mov-vec2(0.0)))), 0.,0.)
-         + (circle(st,0.2)-circle(st,0.11))*vec3((step(0.10,length(mov-vec2(0.0))))-(step(0.2,length(mov-vec2(0.0)))), 0.,0.)
-         + (circle(st,0.1)-circle(st,0.0))*vec3((step(0.0,length(mov-vec2(0.0))))-(step(0.1,length(mov-vec2(0.0)))), 0.,0.)
+  color += (circle(st,0.5)-circle(st,0.41))*vec3(step(0.40,distance(mov, translate -vec2(0.5)))-(step(0.5,distance(mov, translate -vec2(0.5)))), 0.0,0.0)
+         + (circle(st,0.4)-circle(st,0.31))*vec3((step(0.30,distance(mov, translate -vec2(0.5))))-(step(0.4,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.3)-circle(st,0.21))*vec3((step(0.20,distance(mov, translate -vec2(0.5))))-(step(0.3,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.2)-circle(st,0.11))*vec3((step(0.10,distance(mov, translate -vec2(0.5))))-(step(0.2,distance(mov, translate -vec2(0.5)))), 0.,0.)
+         + (circle(st,0.1)-circle(st,0.0))*vec3((step(0.0,distance(mov, translate -vec2(0.5))))-(step(0.1,distance(mov, translate -vec2(0.5)) )), 0.,0.)
          + (circle(st,0.5)-circle(st,0.49))
          + (circle(st,0.4)-circle(st,0.395))
          + (circle(st,0.3)-circle(st,0.298))
