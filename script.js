@@ -31,13 +31,13 @@ window.addEventListener('DOMContentLoaded',function (){
     iFrame.setAttribute('src', `https://open.spotify.com/embed/album/${idsList[tabName]}?utm_source=generator`);
     iFrame.setAttribute('frameBorder', "0");
     iFrame.setAttribute('allow','autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
-    iFrame.style.display="none";
     iFrame.classList.add('weather-canvas');
     iFrame.addEventListener('load', () =>{
-      if(div.querySelectorAll('.weather-canvas').length>1) div.removeChild(div.querySelectorAll('.weather-canvas')[0]);
-      iFrame.style.display="block";
+      div.style.height='55vmin';
       e.target.classList.toggle('active');
     })
+    div.style.height="0px";
+    div.innerHTML="";
     div.appendChild(iFrame);
   }
 
