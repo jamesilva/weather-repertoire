@@ -26,20 +26,21 @@ window.addEventListener('DOMContentLoaded',function (){
 
   function changeTab(e, tabName){
     let div=document.querySelector('.tab-content');
+    div.style.height="0px";
     let idsList= {'sunny':'5SosqlxeVmbp47asMuQlqi', 'cloudy':'3nR8btC3svZmUktrXDBuRY', 'rainy':'2HC4JdZb7ZqFto0xX4OkMv', 'storm':'4bJCKmpKgti10f3ltz6LLl'};
     const iFrame= document.createElement('iframe');
     iFrame.setAttribute('src', `https://open.spotify.com/embed/album/${idsList[tabName]}?utm_source=generator`);
     iFrame.setAttribute('frameBorder', "0");
+    iFrame.setAttribute('width', "100%");
+    iFrame.setAttribute('height', "380");
     iFrame.setAttribute('allow','autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
     iFrame.classList.add('weather-canvas');
+    e.target.classList.toggle('active');
     iFrame.addEventListener('load', () =>{
-      div.style.height='55vmin';
-      e.target.classList.toggle('active');
+      div.style.height='380px';
     })
-    div.style.height="0px";
     div.innerHTML="";
     div.appendChild(iFrame);
   }
-
 });
 

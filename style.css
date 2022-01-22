@@ -14,29 +14,15 @@ html{
 
 body{
   width: 100%;
-  min-height: 100vmin;
-  /* background-color: var(--secondary-color); */
-  /* background-color: #fefefe; */
-  /* background:linear-gradient(to top, #3E5879,  #020B1A); */
-  /* background-image: url('images/icon-no-sun.png');
-  background-size: cover; */
+  /* min-height: 100vmin;   */
+  min-height: 100vh;
   background:linear-gradient(to top, #3E5879, #020B1A);
-  /* background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat; */
-  /* pointer-events: none; */
+  background-repeat: no-repeat;
   user-select: none;
   font-family: 'Montserrat', sans-serif;
 }
 
-main{
-  width: 100%;
-  transition: filter 1.3s ease-in-out;
-}
 
-main.blurred{
-  filter: blur(10px);
-}
 
 /* ASIDE */
 
@@ -65,7 +51,6 @@ main.blurred{
   padding: 3% 7%;
   color: var(--primary-color);
   transition: all 1.3s;
-  /* animation: example 1.3s; */
 }
 
 .about-title{
@@ -77,7 +62,7 @@ main.blurred{
 .about-text{
   width: 50%;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 300;
   font-size: calc(0.1rem + 2.5vmin);
 }
 
@@ -85,9 +70,23 @@ main.blurred{
   position: relative;
   /* font-family: monospace; */
   font-size: calc(0.15rem + 2.5vmin);
+  font-weight: 300;
   width: 48%;
   top: 8vmin;
   text-align: right;
+}
+
+
+
+/* Main content */
+
+main{
+  width: 100%;
+  transition: filter 1.3s ease-in-out;
+}
+
+main.blurred{
+  filter: blur(10px);
 }
 
 h2{
@@ -99,6 +98,8 @@ section{
   width: 100%;
   padding: 3% 7% 1%;
 }
+
+
 
 /* First section */
 
@@ -148,7 +149,6 @@ section{
   border-radius: 4px;
   font-family: 'Montserrat', sans-serif;
   font-size: calc(.1rem + 2.5vmin);
-  /* font-size: 1rem; */
   cursor: pointer;
   transition-duration: 0.35s;
 }
@@ -169,37 +169,37 @@ section{
   color: #3E5879;
 }
 
+
+
 /* MAIN SECTION */
 
 #main{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
   flex-wrap: wrap;
 }
 
-/* Weather Cards */
-
 .tabs{
   width: 66.66%;
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
-  background-color:#06132b;
+  /* background-color:#fefefe33; */
+  margin-bottom: 2%;
 }
 
 .tab-selector{
-  flex-shrink: 0;
-  display: inline;
+  flex-grow: 0;
   color: var(--primary-color);
   background-color: inherit;
-  width: 80px;
+  width: 25%;
   border: none;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   font-size: calc(.1rem + 2.5vmin);
-  padding: 1% 1%;
+  padding: 1% 1% ;
   cursor: pointer;
   transition-duration: 0.35s;
 }
@@ -215,7 +215,7 @@ section{
 
 .tab-content{
   width: 66.66%;
-  height: 55vmin;
+  height: 380px;
   /* border: 1px solid var(--primary-color); */
   background-color: #fefefe33;
   transition: height 0.2s ease-in-out;
@@ -236,6 +236,8 @@ section{
   height: 100%;
 }
 
+
+
 /* COPYRIGHT */
 
 #contact{
@@ -251,7 +253,7 @@ section{
   /* text-align: center; */
   color: var(--primary-color);
   font-weight: 400;
-  font-size: calc(.1rem + 2.5vmin);
+  font-size: calc(.15rem + 2.5vmin);
 }
 
 .logo{
@@ -262,10 +264,12 @@ section{
   fill: #fefefe;
 }
 
+
+
+/* MEDIA QUERIES */
+
 @media (max-width: 956px) {
-  #main >*{
-    flex: 0 0 50%;
-  }
+
   /* .weather-card:hover{
     width:66%;
   } */
@@ -286,9 +290,7 @@ section{
 }
 
 @media (max-width: 765px){
-  #main >*{
-    flex: 0 0 80%;
-  }
+ 
 }
 
 @media (prefers-color-scheme: light){
