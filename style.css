@@ -42,7 +42,7 @@ aside{
   left: 0;
   width: 0%;
   min-height: 100%;
-  transition: all 1.3s;
+  transition: all 1.0s;
 }
 
 aside.show{
@@ -51,7 +51,6 @@ aside.show{
   width: 100%;
   padding: 3% 7%;
   color: #fefefe;
-  transition: all 1.3s;
 }
 
 .about-title{
