@@ -10,6 +10,7 @@ html{
   scroll-behavior: smooth;
   --primary-color: #fefefe;
   --secondary-color: #2e2e2e;
+  --secondary-color-alpha: #fefefe33;
 }
 
 body{
@@ -26,7 +27,7 @@ body{
 
 /* ASIDE */
 
-#about{
+aside{
   position: fixed;
   z-index: 1;
   background-color: #020711;
@@ -44,12 +45,12 @@ body{
   transition: all 1.3s;
 }
 
-#about.show{
+aside.show{
   visibility: visible;
   opacity: .9; 
   width: 100%;
   padding: 3% 7%;
-  color: var(--primary-color);
+  color: #fefefe;
   transition: all 1.3s;
 }
 
@@ -107,7 +108,6 @@ section{
   display: flex;
   justify-content: space-between;
   color: var(--primary-color);
-  /* background-color: #2d2d2d; */
 }
 
 .title{
@@ -118,7 +118,7 @@ section{
 
 .title a{
   text-decoration: none;
-  color: inherit;
+  color: var(--primary-color);
 }
 
 .navbar{
@@ -142,7 +142,6 @@ section{
   display: inline;
   color: var(--primary-color);
   background-color: transparent;
-  /* border: 1px solid #fefefe; */
   border: none;
   text-align: center;
   text-decoration: none;
@@ -154,13 +153,12 @@ section{
 }
 
 .about-button:hover{
-  /* background-color: #fefefe33; */
   color: #3E5879;
 }
 
 .navbar li a{
   text-decoration: none;
-  color: inherit;
+  color: var(--primary-color);
   transition-duration: 0.35s;
   font-size: calc(.1rem + 2.5vmin);
 }
@@ -186,14 +184,14 @@ section{
   width: 66.66%;
   display: inline-flex;
   justify-content: flex-start;
-  /* background-color:#fefefe33; */
+  background-color: transparent;
   margin-bottom: 2%;
 }
 
 .tab-selector{
   flex-grow: 0;
   color: var(--primary-color);
-  background-color: inherit;
+  background-color: transparent;
   width: 25%;
   border: none;
   text-align: center;
@@ -205,20 +203,20 @@ section{
 }
 
 .tab-selector:hover{
-  background-color: #fefefe33;
+  background-color: var(--secondary-color-alpha);
   /* color: #3E5879; */
 }
 
 .tab-selector.active{
-  background-color: #f0f0f033;
+  background-color: var(--secondary-color-alpha);
 }
 
 .tab-content{
   width: 66.66%;
   height: 380px;
-  /* border: 1px solid var(--primary-color); */
-  background-color: #fefefe33;
-  transition: height 0.2s ease-in-out;
+  border-bottom: 1px solid var(--primary-color);
+  /* background-color: #fefefe33; */
+  transition: height .25s ease-in-out;
 }
 
 .weather-card{
@@ -253,15 +251,7 @@ section{
   /* text-align: center; */
   color: var(--primary-color);
   font-weight: 400;
-  font-size: calc(.15rem + 2.5vmin);
-}
-
-.logo{
-  width: 10%;
-}
-
-.front-logo:hover{
-  fill: #fefefe;
+  font-size: calc(.1rem + 2.5vmin);
 }
 
 
@@ -297,5 +287,10 @@ section{
   html{
     --primary-color: #2e2e2e;
     --secondary-color: #fefefe;
+    --secondary-color-alpha: #9e9e9e33;
+  }
+  body{
+    background: none;
+    background-color: var(--secondary-color);
   }
 }
